@@ -23,5 +23,9 @@ public class Aluno {
         return email;
     }
 
+    public String toString() {
+        return nome + " - " + telefone + " - "+ email;
+    }
+
 }
 

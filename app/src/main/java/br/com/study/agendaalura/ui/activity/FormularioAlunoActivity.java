@@ -14,31 +14,50 @@ import br.com.study.agendaalura.model.Aluno;
 
 public class FormularioAlunoActivity extends AppCompatActivity {
 
+    public static final String NOVO_ALUNO = "Novo Aluno";
+    private TextInputEditText campoNome;
+    private TextInputEditText campoEmail;
+    private TextInputEditText campoTelefone;
+    private final AlunoDAO dao = new AlunoDAO();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario_aluno);
 
-        final AlunoDAO dao = new AlunoDAO();
+        setTitle(NOVO_ALUNO);
+        inicializacaoDosCampos();
+        configuraBotaoSalvar();
+    }
 
-        final TextInputEditText campoNome = findViewById(R.id.activity_formulario_aluno_nome);
-        final TextInputEditText campoTelefone = findViewById(R.id.activity_formulario_aluno_telefone);
-        final TextInputEditText campoEmail = findViewById(R.id.activity_formulario_aluno_email);
+    private void configuraBotaoSalvar() {
         MaterialButton botaSalvar = findViewById(R.id.activity_formulario_aluno_botao);
-
         botaSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String nome = campoNome.getText().toString();
-                String telefone = campoTelefone.getText().toString();
-                String email = campoEmail.getText().toString();
-
-                Aluno alunoCriado = new Aluno( nome, telefone,email);
-                dao.salva(alunoCriado);
-
-                finish();
-
+                Aluno alunoCriado = criaAluno();
+                salva(alunoCriado);
             }
         });
+    }
+
+
+    private void inicializacaoDosCampos() {
+        campoNome = findViewById(R.id.activity_formulario_aluno_nome);
+        campoEmail = findViewById(R.id.activity_formulario_aluno_email);
+        campoTelefone = findViewById(R.id.activity_formulario_aluno_telefone);
+    }
+
+    private void salva(Aluno alunoCriado) {
+        dao.salva(alunoCriado);
+        finish();
+    }
+
+    private Aluno criaAluno() {
+        String nome = campoNome.getText().toString();
+        String telefone = campoTelefone.getText().toString();
+        String email = campoEmail.getText().toString();
+
+        return new Aluno(nome, telefone, email);
     }
 }

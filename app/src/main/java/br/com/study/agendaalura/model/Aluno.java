@@ -1,6 +1,8 @@
 package br.com.study.agendaalura.model;
 
-public class Aluno {
+import java.io.Serializable;
+
+public class Aluno implements Serializable {
     private final String nome;
     private final String telefone;
     private final String email;

@@ -2,6 +2,7 @@ package br.com.study.agendaalura.ui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -28,6 +29,14 @@ public class FormularioAlunoActivity extends AppCompatActivity {
         setTitle(NOVO_ALUNO);
         inicializacaoDosCampos();
         configuraBotaoSalvar();
+
+        Intent dados = getIntent();
+        Aluno aluno = (Aluno) dados.getSerializableExtra("aluno");
+        campoNome.setText(aluno.getNome());
+        campoTelefone.setText(aluno.getEmail());
+        campoEmail.setText(aluno.getEmail());
+
+
     }
 
     private void configuraBotaoSalvar() {
